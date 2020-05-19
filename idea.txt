@@ -1,0 +1,51 @@
+web html mmo 2.5d (minimal pixel art)
+jugabilidad web y mobile
+procedural generated
+
+1 mapa grande o varios mapas? mmm 1m apa grande seria el point
+
+sos un ser (gnomo/duende/mago/) color random (la conformacion de la cara podria ser aleatoria tmb)
+
+pantalla de inicio minimalista con imagen o video mostrando el terreno
+
+entrada al mundo epica corte Diablo 2, tipo pones tu nick, entras y hay un fade piolita
+
+apareces en un desierto alien (terreno de colores raros y plantas tipo rick y morty o toejam and earl)
+
+apareces en un lugar random del mapa (donde no haya un objeto/jugador), como saliendo de un portal?
+
+te moves con click (corte diablo je) o tap (mobile)
+
+// doble click/tap y lanzas el poder (tiene que ser un doble click/tap mas o menos rapido, cosa de que cuando quieras moverte en varias direcciones rapido no dispare)
+
+mantenes click, castea un par de segundos (tu personaje sigue moviendose), y se lanza el poder automaticamente
+
+velocidad mediana/alta (fast paced) el jugador va como corriendo (tiene stamina, si no para por un tiempo y se queda sin stamina va mas lento)
+
+a medida que matas users ganas velocidad y el poder que lanzas es mas grande y tiene mas rango? (A FUTURO)
+
+// te moves con WASD , tocas el poder y lo lanzas
+// en el celu tenes un controlador corte emulador en el lado izq, y en el derecho el poder
+
+
+
+jugabilidad alternativa
+click te moves, y al clickear al otro player le pegas melee
+
+tenes que armar lanzas con palos y piedras del terreno, y cuando mantenes y castea la disparas
+si no podes pelear mano a mano clikeando al jugador que queres pegarle
+
+--------------------- MVP --------------------------
+
+v0.1
+
+mapa fondo negro (ajustar resolucion web/mobile e investigar cómo poner tu propio background)
+personaje cuadrado blanco, dispara un cuadrado rojo
+si el cuadrado rojo toca un player, este muere (queda cadaver en el sopi?). y se elimina el cuadrado
+si el cuadrado rojo se va de los limites se elimina el objeto
+que el poder tenga un rango? y que si llega al limite del rango desaparece solo (va por ahí creo eh)
+
+ajustar movilidad. que no sea a un tile sino que te puedas mover a cualquier punto de la pantalla
+
+cuando moris aparece boton para revivir (cuando moris queda tu cadaver, y al revivir desaparece (con un efectito)
+
