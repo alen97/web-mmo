@@ -49,3 +49,6 @@ ajustar movilidad. que no sea a un tile sino que te puedas mover a cualquier pun
 
 cuando moris aparece boton para revivir (cuando moris queda tu cadaver, y al revivir desaparece (con un efectito)
 
+Cada cierto tiempo aparecen popups a lo largo del mapa (velocidad, menor tiempo casteo, etc)
+
+GUI Coordenadas, mapa grande

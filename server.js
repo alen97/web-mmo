@@ -35,6 +35,13 @@ io.on('connection',function(socket){
             io.emit('move',socket.player);
         });
 
+        // socket.on('shoot',function(data){
+        //     console.log('shoot to '+data.x+', '+data.y);
+        //     socket. = data.x;
+        //     socket.player.y = data.y;
+        //     io.emit('move',socket.player);
+        // });
+
         socket.on('disconnect',function(){
             io.emit('remove',socket.player.id);
         });

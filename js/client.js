@@ -1,7 +1,3 @@
-/**
- * Created by Jerome on 03-03-17.
- */
-
 var Client = {};
 Client.socket = io.connect();
 
@@ -17,6 +13,10 @@ Client.askNewPlayer = function(){
 Client.sendClick = function(x,y){
   Client.socket.emit('click',{x:x,y:y});
 };
+
+// Client.sendShoot = function(x,y){
+//     Client.socket.emit('shoot',{x:x,y:y});
+// };
 
 Client.socket.on('newplayer',function(data){
     Game.addNewPlayer(data.id,data.x,data.y);

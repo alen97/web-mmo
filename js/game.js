@@ -5,10 +5,13 @@ Game.init = function(){
 };
 
 var player;
+var proyectilSprite;
+// var proyectiles;
 
 Game.preload = function() {
     // game.load.image('background','assets/map/background.png');
-    game.load.image('player','assets/sprites/sprite.png');
+    game.load.image('player','assets/sprites/player.png');
+    game.load.image('proyectil','assets/sprites/proyectil.png');
 };
 
 Game.create = function(){
@@ -16,45 +19,63 @@ Game.create = function(){
     var testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     testKey.onDown.add(Client.sendTest, this);
 
-    // player = game.add.sprite(game.world.centerX, game.world.centerY, 'player')
-    // game.physics.enable(player, Phaser.Physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    // proyectiles = game.add.group();
+    // proyectiles.enableBody = true;
+    // proyectiles.physicsBodyType = Phaser.Physics.ARCADE;
 
-
+    // proyectiles.createMultiple(50, 'proyectil');
+    // proyectiles.setAll('checkWorldBounds', true);
+    // proyectiles.setAll('outOfBoundsKill', true);
     
     game.canvas.oncontextmenu = function (e) { e.preventDefault(); }
+
     Client.askNewPlayer();
 };
 
 Game.update = function(){
     //  only move when you click
-    if (game.input.mousePointer.isDown)
+    if (game.input.activePointer.isDown)
     {
-        //  400 is the speed it will move towards the mouse
-        game.physics.arcade.moveToPointer(player, 400)
-        movePlayer('player', pointer.x, pointer.y);
+        // proyectilSprite = game.add.sprite(this.player.x, this.player.y, 'proyectil');
 
+        // proyectilSprite.physics.enable(proyectilSprite, Phaser.Physics.ARCADE);
+        // proyectilSprite.body.allowRotation = false;
+        // game.physics.arcade.moveToPointer(bullet, 300);
+
+        Game.getCoordinates(game.input.activePointer);
     }
-    else
-    {
-        // player.body.velocity.setTo(0, 0);
-    }
+    //proyectilSprite.rotation = game.physics.arcade.angleToPointer(proyectilSprite);
+
+
+    // if (game.input.activePointer.isDown)
+    // {
+    // }
 
 }
 
-Game.getCoordinates = function(layer,pointer){
-    Client.sendClick(pointer.worldX,pointer.worldY);
+Game.getCoordinates = function(pointer){
+    console.log(pointer);
+    Client.sendClick(pointer.worldX-12,pointer.worldY-12);
 };
+
+// Game.shoot = function(pointer){
+//     console.log(pointer);
+//     Client.sendShoot(pointer.worldX-12,pointer.worldY-12);
+// };
 
 Game.addNewPlayer = function(id,x,y){
     Game.playerMap[id] = game.add.sprite(x,y,'player');
+    // game.physics.enable(Game.playerMap[id], Phaser.Physics.ARCADE);
+    this.player = Game.playerMap[id];
 };
 
 Game.movePlayer = function(id,x,y){
     var player = Game.playerMap[id];
     var distance = Phaser.Math.distance(player.x,player.y,x,y);
     var tween = game.add.tween(player);
-    var duration = distance*10;
+    var duration = distance*5;
     tween.to({x:x,y:y}, duration);
     tween.start();
 };
