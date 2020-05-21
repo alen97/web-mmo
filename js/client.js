@@ -14,10 +14,6 @@ Client.sendClick = function(x,y){
   Client.socket.emit('click',{x:x,y:y});
 };
 
-// Client.sendShoot = function(x,y){
-//     Client.socket.emit('shoot',{x:x,y:y});
-// };
-
 Client.socket.on('newplayer',function(data){
     Game.addNewPlayer(data.id,data.x,data.y);
 });
@@ -37,3 +33,28 @@ Client.socket.on('allplayers',function(data){
 });
 
 
+
+Client.sendShoot = function(x,y){
+    console.log("SHOOOT")
+
+    Client.socket.emit('newproyectil');
+    Client.socket.emit('shoot',{x:x,y:y});
+};
+
+Client.socket.on('newproyectil',function(data){
+     Game.addNewProyectil(data.id,data.x,data.y);
+});
+
+Client.socket.on('allproyectiles',function(data){
+    for(var i = 0; i < data.length; i++){
+        Game.addNewProyectil(data[i].id,data[i].x,data[i].y);
+    }
+
+    Client.socket.on('moveProyectil',function(data){
+        Game.moveProyectil(data.id,data.x,data.y);
+    });
+
+    Client.socket.on('remove',function(id){
+        Game.removeProyectil(id);
+    });
+});

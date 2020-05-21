@@ -38,22 +38,41 @@ Game.create = function(){
 // var shoot = false;
 // var timer;
 // var total = 0;
+var proyectilEquipado = false;
+var proyectiles = [];
+var id = 0;
 
 Game.update = function(){
 
-
     //  only move when you click
-    if (game.input.activePointer.isDown)
+    if (game.input.activePointer.isDown) 
     {
-        // proyectilSprite = game.add.sprite(this.player.x, this.player.y, 'proyectil');
+        if(this.proyectilEquipado) {
+            if(game.input.activePointer.duration > 500){
+                this.proyectilSprite  = game.add.sprite(this.player.x, this.player.y, 'proyectil');
 
+                this.proyectilEquipado = false;
+
+                Game.shoot(game.input.activePointer);
+            }
+        }
         // proyectilSprite.physics.enable(proyectilSprite, Phaser.Physics.ARCADE);
         // proyectilSprite.body.allowRotation = false;
         // game.physics.arcade.moveToPointer(bullet, 300);
     
         // shoot = true;
 
-        Game.getCoordinates(game.input.activePointer);
+        // Hacer sistema de casteo mientras se mantiene el click
+        // console.log(game.input.activePointer.duration)
+        // if(game.input.activePointer.msSinceLastClick > 100){
+        //     Game.getCoordinates(game.input.activePointer);
+
+        // }
+        
+        if(game.input.activePointer.duration < 30){
+            Game.getCoordinates(game.input.activePointer);
+
+        }
 
         // //  Create our Timer
         // this.timer = game.time.create(false);
@@ -88,15 +107,34 @@ Game.getCoordinates = function(pointer){
     Client.sendClick(pointer.worldX-12,pointer.worldY-12);
 };
 
-// Game.shoot = function(pointer){
-//     console.log(pointer);
-//     Client.sendShoot(pointer.worldX-12,pointer.worldY-12);
-// };
+Game.shoot = function(pointer){
+    console.log(pointer);
+    Client.sendShoot(pointer.worldX-12,pointer.worldY-12);
+};
+
+// var id = 0;
+// var playerList = [];
 
 Game.addNewPlayer = function(id,x,y){
     Game.playerMap[id] = game.add.sprite(x,y,'player');
+    console.log(Game.playerMap[id])
     // game.physics.enable(Game.playerMap[id], Phaser.Physics.ARCADE);
     this.player = Game.playerMap[id];
+
+    // this.playerList[this.id] = Game.playerMap[id];
+    // this.id++;
+    this.proyectilEquipado = true;
+};
+
+Game.addNewProyectil = function(id,x,y){
+    Game.playerMap[id] = game.add.sprite(x,y,'player');
+    console.log(Game.playerMap[id])
+    // game.physics.enable(Game.playerMap[id], Phaser.Physics.ARCADE);
+    this.player = Game.playerMap[id];
+
+    // this.playerList[this.id] = Game.playerMap[id];
+    // this.id++;
+    this.proyectilEquipado = true;
 };
 
 Game.movePlayer = function(id,x,y){
@@ -108,7 +146,21 @@ Game.movePlayer = function(id,x,y){
     tween.start();
 };
 
+Game.moveProyectil = function(id,x,y){
+    var player = Game.playerMap[id];
+    var distance = Phaser.Math.distance(player.x,player.y,x,y);
+    var tween = game.add.tween(player);
+    var duration = distance*5;
+    tween.to({x:x,y:y}, duration);
+    tween.start();
+};
+
 Game.removePlayer = function(id){
     Game.playerMap[id].destroy();
     delete Game.playerMap[id];
+};
+
+Game.removeProyectil = function(id){
+    this.proyectilSprite.destroy();
+    delete this.proyectilSprite
 };
