@@ -49,7 +49,7 @@ Game.update = function(){
     {
         if(this.proyectilEquipado) {
             if(game.input.activePointer.duration > 500){
-                this.proyectilSprite  = game.add.sprite(this.player.x, this.player.y, 'proyectil');
+                // this.proyectilSprite  = game.add.sprite(this.player.x, this.player.y, 'proyectil');
 
                 this.proyectilEquipado = false;
 
@@ -117,7 +117,7 @@ Game.shoot = function(pointer){
 
 Game.addNewPlayer = function(id,x,y){
     Game.playerMap[id] = game.add.sprite(x,y,'player');
-    console.log(Game.playerMap[id])
+    console.log("NUEVO PLAYERRRRRR "+Game.playerMap[id])
     // game.physics.enable(Game.playerMap[id], Phaser.Physics.ARCADE);
     this.player = Game.playerMap[id];
 
@@ -127,14 +127,14 @@ Game.addNewPlayer = function(id,x,y){
 };
 
 Game.addNewProyectil = function(id,x,y){
-    Game.playerMap[id] = game.add.sprite(x,y,'player');
-    console.log(Game.playerMap[id])
+    Game.proyectilMap[id] = game.add.sprite(x,y,'proyectil');
+    console.log("NUEVO PROYECTILLLL "+Game.proyectilMap[id])
     // game.physics.enable(Game.playerMap[id], Phaser.Physics.ARCADE);
-    this.player = Game.playerMap[id];
+    this.proyectilSprite = Game.proyectilMap[id];
 
     // this.playerList[this.id] = Game.playerMap[id];
     // this.id++;
-    this.proyectilEquipado = true;
+    this.proyectilEquipado = false;
 };
 
 Game.movePlayer = function(id,x,y){
@@ -147,9 +147,10 @@ Game.movePlayer = function(id,x,y){
 };
 
 Game.moveProyectil = function(id,x,y){
-    var player = Game.playerMap[id];
-    var distance = Phaser.Math.distance(player.x,player.y,x,y);
-    var tween = game.add.tween(player);
+    console.log("YIIIIIAAAA")
+    var proyectil = Game.proyectilMap[id];
+    var distance = Phaser.Math.distance(proyectil.x,proyectil.y,x,y);
+    var tween = game.add.tween(proyectil);
     var duration = distance*5;
     tween.to({x:x,y:y}, duration);
     tween.start();

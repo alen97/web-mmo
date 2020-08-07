@@ -24,6 +24,7 @@ Client.socket.on('allplayers',function(data){
     }
 
     Client.socket.on('move',function(data){
+        console.log("YIAAA NIGGA")
         Game.movePlayer(data.id,data.x,data.y);
     });
 
@@ -32,16 +33,15 @@ Client.socket.on('allplayers',function(data){
     });
 });
 
-
-
 Client.sendShoot = function(x,y){
     console.log("SHOOOT")
 
-    Client.socket.emit('newproyectil');
     Client.socket.emit('shoot',{x:x,y:y});
 };
 
 Client.socket.on('newproyectil',function(data){
+    console.log("NARNIA HERE")
+
      Game.addNewProyectil(data.id,data.x,data.y);
 });
 
@@ -50,7 +50,9 @@ Client.socket.on('allproyectiles',function(data){
         Game.addNewProyectil(data[i].id,data[i].x,data[i].y);
     }
 
-    Client.socket.on('moveProyectil',function(data){
+    Client.socket.on('moveproyectil',function(data){
+        console.log("YIIIIIAAAA")
+
         Game.moveProyectil(data.id,data.x,data.y);
     });
 

@@ -12,6 +12,8 @@ app.get('/',function(req,res){
 });
 
 server.lastPlayerID = 0;
+server.lastProyectilID = 0;
+
 
 server.listen(process.env.PORT || 8081,function(){
     console.log('Listening on '+server.address().port);
@@ -35,16 +37,29 @@ io.on('connection',function(socket){
             io.emit('move',socket.player);
         });
 
-        socket.on('shoot',function(data){
-            console.log('shoot to '+data.x+', '+data.y);
-            socket.player.x = data.x;
-            socket.player.y = data.y;
-            io.emit('moveProyectil',socket.player);
-        });
-
         socket.on('disconnect',function(){
             io.emit('remove',socket.player.id);
         });
+    });
+
+    socket.on('newproyectil',function(){
+        socket.proyectil = {
+            id: server.lastProyectilID++,
+            x: server.lastPlayerID.x,
+            y: server.lastPlayerID.y
+        };
+        socket.emit('allproyectiles',getAllProyectiles());
+        console.log("JEJE2")
+        socket.broadcast.emit('newproyectil',socket.proyectil);
+        console.log("JEJE2")
+
+        socket.on('shoot',function(data){
+            console.log('shoot to '+data.x+', '+data.y);
+            socket.proyectil.x = data.x;
+            socket.proyectil.y = data.y;
+            io.emit('moveproyectil',socket.proyectil);
+        });
+
     });
 
     socket.on('test',function(){
@@ -59,6 +74,15 @@ function getAllPlayers(){
         if(player) players.push(player);
     });
     return players;
+}
+
+function getAllProyectiles(){
+    var proyectiles = [];
+    Object.keys(io.sockets.connected).forEach(function(socketID){
+        var proyectil = io.sockets.connected[socketID].proyectil;
+        if(proyectil) proyectiles.push(proyectil);
+    });
+    return proyectiles;
 }
 
 function randomInt (low, high) {

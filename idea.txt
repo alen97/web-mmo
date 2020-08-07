@@ -55,6 +55,8 @@ si un player muere y hay un objeto en el piso este desaparece
 
 con doble click dash?
 
+doble click disparo?
+
 cuando moris aparece boton para revivir (cuando moris queda tu cadaver, y al revivir desaparece (con un efectito)
 
 Cada cierto tiempo aparecen popups a lo largo del mapa (velocidad, menor tiempo casteo, etc)
